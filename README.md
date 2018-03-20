@@ -27,3 +27,7 @@ Body.component('circleShape', { type:'Array', property: [
   {color: '#701B73', x: 400, y: 100, radius: 50}
 ]})
 ```
+
+## Examples
+
+[View examples ~](https://koringz.github.io/s3/s3.JS.html)
