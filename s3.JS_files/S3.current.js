@@ -47,6 +47,9 @@
                 isArr: function(options) {
                     return typeof(options) === 'array'
                 },
+                isBool: function  (argument) {
+                    return typeof(options) === 'boolean'
+                },
                 trim: function(options) {
                     return options.replace(/(\s*)/g, '');
                 },
@@ -231,14 +234,14 @@
                             var _thing = data[k];
                             var m = 0;
                             var n = 0;
-                            if (typeof(_thing) === 'string' || typeof(_thing) === 'number' || typeof(_thing) === 'boolean') {
+                            if (_s3.isStr(_thing) || _s3.isNum(_thing) || _s3.isBool(_thing)) {
                                 this.newEmpty.push(k);
                                 this.defaults[k] = {
                                     name: 'withoutMethod',
                                     type: typeof(data[k])
                                 };
                                 this.config['withoutMethod'] = n++;
-                            } else if (typeof(_thing) === 'function') {
+                            } else if (_s3.isFun(_thing)) {
                                 this.newEmpty.push(k);
                                 this.defaults[k] = {
                                     name: 'withMethod',
@@ -555,7 +558,6 @@
         s3.node = {};
 
         /*
-        /*
         * Enter
         * 2Dtool and scene
         * loading animation scene and operation steps
@@ -609,7 +611,7 @@
                             },
                             addComponent: function() {
                                 var args = arguments;
-                                if (typeof args[0] === 'string' && typeof args[1] === 'object') {
+                                if (_s3.isStr(args[0]) && _s3.isObj(args[1])) {
                                     that.pipe.push({ componentName: args[0], characteristic: args[1] })
                                 }
                                 var getPropBindObject;
@@ -638,7 +640,7 @@
                     }
                 },
                 animation: function(options, t) {
-                    if (t >> 0 || typeof(t) === 'number') t = 1;
+                    if (t >> 0 || _s3.isNum(t)) t = 1;
                     if (t == null && t == undefined) t = 0;
                     function _render() {
                         t = setTimeout(_render, 30);
@@ -661,7 +663,7 @@
                                     else results = getStream(bool)
                                     if (results.changedState) {
                                         if (ms) clearTimeout(ms);
-                                        if (window.requestAnimationFrame) ms = requestAnimationFrame(self);
+                                        if (win.requestAnimationFrame) ms = requestAnimationFrame(self);
                                         else ms = setTimeout(self,17)
                                         going = 1
                                     }
@@ -730,7 +732,7 @@
                     // options => function (){ return ['#222','#333']};
                     // this.getValue => number;
                     var acceptData;
-                    if (typeof options === 'function') acceptData = options.call(this);
+                    if (_s3.isFun(options)) acceptData = options.call(this);
                     else acceptData = options;
                     var size = this.getValue;
                     var arrEmpty = [];
@@ -745,7 +747,7 @@
             q[0].defineProperties(o[1][88].prototype, {
                 value: {
                     get: function() {
-                        return typeof this.nums === 'number' ? this.nums: Number(this.nums)
+                        return _s3.isNum(this.nums) ? this.nums: Number(this.nums)
                     },
                     set: function(val) {
                         var output = val;
@@ -850,7 +852,7 @@
                 hook2D: function(options, obj) {
                     var model;
                     var _this = this;
-                    if (typeof options === 'string') model = this[options],
+                    if (_s3.isStr(options)) model = this[options],
                     model.data = this.data[0];
                     model.call(model, obj);
                 },
@@ -983,7 +985,7 @@
                 val: function(value) {
                     var data = this.data;
                     var getShift = data.shift();
-                    if (typeof value === 'string' || typeof value === 'number') data[0][getShift] = Number(value);
+                    if (_s3.isStr(value) || _s3.isNum(value)) data[0][getShift] = Number(value);
                     else return data[0][getShift];
                     return this
                 }
@@ -1119,7 +1121,16 @@
                 loop: function (ctx2M, getShapeProperty, j, that) {
                     // the number of shape depends on 'for' loops
                     var name = this.matchModules(this.iterator.motion);
-                    var results = this.iterator.method.call(that, that);
+                    var results = null;
+                    try {
+                        results = this.iterator.method.call(that, that);
+                        if(!(results instanceof Array)) {
+                            that.need = false
+                            throw "in the component you bind your 'method' is not corrent."
+                        }
+                    } catch (err) {
+                        console.log(err)
+                    }
                     var curve = this.curve;
                     while(curve--) {
                         var x = results[curve][0];
@@ -1212,6 +1223,7 @@
         _s3.isNum = _build.isNum;
         _s3.isArr = _build.isArr;
         _s3.trim = _build.trim;
+        _s3.isBool = _build.isBool;
         _s3.extend = _build.extend;
         _s3.toString = _build.toString;
         _s3.parse = _build.parse;
