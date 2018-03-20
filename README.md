@@ -6,7 +6,7 @@
 
 ## Usage
 
-![Rough.js Circle](http://images.cnblogs.com/cnblogs_com/hao5599/695043/o_5.png)
+![S3.js Circle](http://images.cnblogs.com/cnblogs_com/hao5599/695043/o_5.png)
 
 ```js
 const Body = s3.body(s3.dom('canvas'));
@@ -17,7 +17,7 @@ Body.component('circleShape', { type:'Array', property: [
 
 ## Draw multiple
 
-![Rough.js Circle](http://images.cnblogs.com/cnblogs_com/hao5599/695043/o_3.png)
+![S3.js multi Circle](http://images.cnblogs.com/cnblogs_com/hao5599/695043/o_99.png)
 
 ```js
 const Body = s3.body(s3.dom('canvas'));
