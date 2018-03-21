@@ -11,7 +11,7 @@
 ```js
 const Body = s3.body(s3.dom('canvas'));
 Body.component('circleShape', { type:'Array', property: [
-  {color: '#AB5EEE', x: 100, y: 100, radius: 100}
+  {color: '#AB5EEE', x: 100, y: 100, radius: 50}
 ]})
 ```
 
