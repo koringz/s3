@@ -30,4 +30,4 @@ Body.component('circleShape', { type:'Array', property: [
 
 ## Examples
 
-[View examples ~](https://koringz.github.io/s3/s3.JS.html)
+[View examples ~](https://koringz.github.io/s3/index.html)
