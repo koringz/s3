@@ -1,0 +1,45 @@
+a{ text-decoration: none; color: inherit;}
+.auth-dev{
+  text-align: right;
+  padding: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #aaa;
+}
+.container{
+  position: relative;
+  width: 1200px;
+  margin: 0 auto;
+}
+.set-cap{
+  margin-top: 10px;
+  border-bottom: 1px solid #eaecef;
+}
+.all-case{
+  margin-top: 20px;
+}
+.box-child{
+  float: left;
+  margin-right: 20px;
+  width: 200px;
+  height: 138px;
+  padding: 10px 20px;
+  border: 1px solid #dfe2e5;
+  overflow: hidden;
+}
+.case-descri{
+  height: 44px;
+  line-height: 38px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.viewimg{
+  width: 100%;
+}
+.viewimg a {
+  display: block;
+}
+.viewimg img {
+  width: 100%;
+  border: none;
+}

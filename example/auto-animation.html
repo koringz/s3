@@ -1,0 +1,99 @@
+<html>
+<head>
+  <title>Auto Animation</title>
+  <script type="text/javascript" src="./d3.v3.min.js"></script>
+  <script type="text/javascript" src="./../lib/S3.js"></script>
+  <style type="text/css">h1{ position: absolute; padding-left: 50px}</style>
+</head>
+<body>
+
+  <h1>s3.js Auto Animation</h1>
+  <canvas></canvas>
+
+</body>
+<script type="text/javascript">
+const offsetWidth = document.body.offsetWidth
+const offsetHeight = document.body.offsetHeight
+
+const Body = s3.body(s3.dom("canvas"))
+Body.set({ width: offsetWidth, height: offsetHeight })
+Body.component('circleShape', { type:'Array', property: [
+  {color: '#AB5EEE', x: offsetWidth / 2, y: offsetHeight / 2, radius: 50, speed: .3, motion: 'move', method: _left},
+  {color: '#AB5EEE', x: offsetWidth / 2, y: offsetHeight / 2, radius: 50, speed: .3, motion: 'move', method: _right},
+  {color: '#AB5EEE', x: offsetWidth / 2, y: offsetHeight / 2, radius: 50, speed: .3, motion: 'move', method: _top},
+  {color: '#AB5EEE', x: offsetWidth / 2, y: offsetHeight / 2, radius: 50, speed: .3, motion: 'move', method: _bottom},
+]})
+
+function _left (api) {
+  var current = api.current
+  var properties = api.properties
+
+  var y = current.y
+  var x = current.x
+  var s = current.speed
+  var r = current.radius
+
+  x -= s;
+  api.setState( { x : x } )
+  if(x < -r * 2) {
+    api.setState( { x: offsetWidth + r } )
+  }
+
+  return [[x,y]]
+}
+
+function _right (api) {
+  var current = api.current
+  var properties = api.properties
+
+  var y = current.y
+  var x = current.x
+  var s = current.speed
+  var r = current.radius
+
+  x += s;
+  api.setState( { x : x } )
+  if(x > offsetWidth + r) {
+    api.setState( { x: -r * 2 } )
+  }
+
+  return [[x,y]]
+}
+
+function _top (api) {
+  var current = api.current
+  var properties = api.properties
+
+  var y = current.y
+  var x = current.x
+  var s = current.speed
+  var r = current.radius
+
+  y -= s;
+  api.setState( { y : y } )
+  if(y < -r * 2) {
+    api.setState( { y: offsetHeight + r } )
+  }
+
+  return [[x,y]]
+}
+function _bottom (api) {
+  var current = api.current
+  var properties = api.properties
+
+  var y = current.y
+  var x = current.x
+  var s = current.speed
+  var r = current.radius
+
+  y += s;
+  api.setState( { y : y } )
+  if(y > offsetHeight + r ) {
+    api.setState( { y: -r * 2 } )
+  }
+
+  return [[x,y]]
+}
+
+</script>
+</html>

@@ -1,0 +1,24 @@
+<html>
+<head>
+  <title>basic case</title>
+  <script type="text/javascript" src="./d3.v3.min.js"></script>
+  <script type="text/javascript" src="./../lib/S3.js"></script>
+  <style type="text/css">h1{ position: absolute; padding-left: 50px} body{ padding: 0;}</style>
+</head>
+<body>
+
+  <h1>s3.js draw more circle </h1>
+  <canvas width="800" height="400"></canvas>
+
+</body>
+<script type="text/javascript">
+
+const Body = s3.body(s3.dom("canvas"))
+Body.component('circleShape', { type:'Array', property: [
+  {color: '#AB5EEE', x: 100, y: 200, radius: 50},
+  {color: '#5716D9', x: 250, y: 200, radius: 50},
+  {color: '#701B73', x: 400, y: 200, radius: 50}
+]})
+
+</script>
+</html>

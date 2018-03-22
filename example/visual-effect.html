@@ -1,0 +1,26 @@
+<html>
+<head>
+  <title>visual effect</title>
+  <script type="text/javascript" src="./../lib/S3.js"></script>
+  <style type="text/css">h1{  position: absolute; padding-left: 50px} body{ padding: 0;}</style>
+</head>
+<body>
+  <h1>s3.js visual effect</h1>
+  <canvas width="1200" height="800"></canvas>
+</body>
+<script type="text/javascript">
+const Body = s3.body(s3.dom("canvas"))
+Body.component('circleShape', { type:'Array', property: col() })
+function col () {
+  var results = new Array();
+  for (var i = 0; i < 600; i++) {
+    var radius = 5;
+    var perha = Math.PI * Math.sqrt(2);
+    var r = radius * Math.sqrt(i * 5), a = perha * i;
+    obj = { color: '#701B73', x: 600 + r * Math.sin(a), y: 300 + r * Math.cos(a), radius: radius };
+    results.push(obj);
+  }
+  return results
+}
+</script>
+</html>
