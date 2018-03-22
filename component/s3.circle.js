@@ -3,7 +3,7 @@ const Can = s3.dom("canvas");
 const Body = s3.body(Can);
 function go(inherit) {
     Body.set({ width: document.body.offsetWidth, height: document.body.offsetHeight });
-    Body.component('circleShape', { type: 'Array', property: inherit });
+    Body.component('circle', { type: 'Array', property: inherit });
 }
 
 function reset() {

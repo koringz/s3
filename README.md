@@ -10,7 +10,7 @@
 
 ```js
 const Body = s3.body(s3.dom('canvas'));
-Body.component('circleShape', { type:'Array', property: [
+Body.component('circle', { type:'Array', property: [
   {color: '#AB5EEE', x: 100, y: 100, radius: 50}
 ]})
 ```
@@ -21,7 +21,7 @@ Body.component('circleShape', { type:'Array', property: [
 
 ```js
 const Body = s3.body(s3.dom('canvas'));
-Body.component('circleShape', { type:'Array', property: [
+Body.component('circle', { type:'Array', property: [
   {color: '#AB5EEE', x: 100, y: 100, radius: 50},
   {color: '#5716D9', x: 250, y: 100, radius: 50},
   {color: '#701B73', x: 400, y: 100, radius: 50}

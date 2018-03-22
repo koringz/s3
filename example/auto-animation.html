@@ -17,7 +17,7 @@ const offsetHeight = document.body.offsetHeight
 
 const Body = s3.body(s3.dom("canvas"))
 Body.set({ width: offsetWidth, height: offsetHeight })
-Body.component('circleShape', { type:'Array', property: [
+Body.component('circle', { type:'Array', property: [
   {color: '#AB5EEE', x: offsetWidth / 2, y: offsetHeight / 2, radius: 50, speed: .3, motion: 'move', method: _left},
   {color: '#AB5EEE', x: offsetWidth / 2, y: offsetHeight / 2, radius: 50, speed: .3, motion: 'move', method: _right},
   {color: '#AB5EEE', x: offsetWidth / 2, y: offsetHeight / 2, radius: 50, speed: .3, motion: 'move', method: _top},
