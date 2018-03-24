@@ -2,12 +2,13 @@
 const Can = s3.dom("canvas");
 const Body = s3.body(Can);
 function go(inherit) {
+    inherit = inherit()
     Body.set({ width: document.body.offsetWidth, height: document.body.offsetHeight });
     Body.component('circle', { type: 'Array', property: inherit });
 }
 
 function reset() {
-    var ang = [10, 230, 360, 80, 160];
+    var ang = [10, 120, 230, 360];
     function color() {
       return 'hsla(' + Math.round(Math.random() * 360) + ',' + Math.round(Math.random() * 100) + '%,' + Math.round(Math.random() * 100) + '%,' + '1)';
     }
@@ -29,7 +30,7 @@ function reset() {
     return results
 }
 
-go(reset())
+go(reset)
 
 var mouseX = 0;
 var mouseY = 0;

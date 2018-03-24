@@ -1,0 +1,24 @@
+Shape.plugin.create('set', S3.space._set);
+Shape.plugin.create('tool', S3.space._tool);
+Shape.plugin.create('circle', S3.tween._circle);
+
+var _build = new S3();
+s3.version = _build.version;
+s3.dom = _build.dom;
+s3.append = _build.append;
+s3.text = _build.text;
+s3.blank = _build.blank;
+s3.isStr = _build.isStr;
+s3.isObj = _build.isObj;
+s3.isFun = _build.isFun;
+s3.isNum = _build.isNum;
+s3.isArr = _build.isArr;
+s3.trim = _build.trim;
+s3.isBool = _build.isBool;
+s3.extend = _build.extend;
+s3.toString = _build.toString;
+s3.parse = _build.parse;
+s3.indexof = _build.indexof;
+s3.debug = _build.debug;
+s3.shape = _build.Shape;
+s3.body = _build.body;
