@@ -124,7 +124,7 @@ addLister(button, 'click', function(e) {
         open_or_close = 0;
         clear = 0;
         interface = null;
-        go(reset());
+        go(reset);
         button.setAttribute("awards", 0);
         button.innerHTML = "继续";
         plus.innerHTML = 0;
