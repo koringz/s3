@@ -1,0 +1,62 @@
+<html>
+<head>
+  <title>Particle Diffuse</title>
+  <style type="text/css">h1{  position: absolute; padding-left: 50px} body{ margin: 0;}</style>
+  <script src="./../lib/S3.js"></script>
+</head>
+<body>
+  <h1>s3.js Particle Diffuse</h1>
+  <canvas></canvas>
+</body>
+<script type="text/javascript">
+var w = document.body.offsetWidth, h = document.body.offsetHeight;
+var ES = EFFECTS()();
+const Body = s3.body(s3.dom("canvas"));
+Body.set({ width: w, height: h });
+Body.component('circle', { type:'Array', property: ES });
+
+function EFFECTS () {
+  var Veno = function (x, y) { this.x = x; this.y = y; };
+  Veno.prototype.add = function(v) { return new Veno(this.x + v.x, this.y + v.y); }
+  Veno.prototype.multi = function(f) { return new Veno(this.x * f, this.y * f); }
+
+  var Particle = function () {
+      var dt = 0.05;
+      this.create = function (particles) {
+          var p = particles;
+          p.position = p.position.add(p.velocity.multi(dt));
+          return p.position
+      }
+  }
+
+  var pa = new Particle();
+  function Fall(api) {
+    var current = api.current;
+    var speed = current.speed;
+    var x = current.x;
+    var y = current.y;
+    var x1 = current.x1;
+    var y1 = current.y1;
+    var r = current.radius;
+
+    var startDisplacement = new Veno(x, y);
+    var moveDisplacement = new Veno(current.custom.x * speed , current.custom.y * speed );
+    var posi = pa.create({ position: startDisplacement, velocity: moveDisplacement });
+
+    if (y < -r/2 || y > y1 + r/2 || x < -r/2 || x > x1 + r/2) api.setState({x: x1/2, y: y1/2});
+    else api.setState({x: posi.x, y: posi.y});
+    return [[posi.x, posi.y]];
+  }
+
+  var results = new Array();
+  return function () {
+    for (var i = 0; i < 111; i++) {
+      var theta = Math.random() * Math.PI * 2;
+      obj = { color: '#AB5EEE', x: w/2, y: h/2, speed: Math.random(), radius: 12, motion: 'move', method: Fall, custom: { x: Math.cos(theta) * 10, y: Math.sin(theta) * 10} };
+      results.push(obj);
+    }
+    return results
+  }
+}
+</script>
+</html>

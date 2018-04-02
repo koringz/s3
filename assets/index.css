@@ -21,6 +21,7 @@ a{ text-decoration: none; color: inherit;}
 .box-child{
   float: left;
   margin-right: 20px;
+  margin-bottom: 20px;
   width: 200px;
   height: 138px;
   padding: 10px 20px;

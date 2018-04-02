@@ -1,7 +1,7 @@
 var s3 = typeof s3 !== "undefined" ? s3 : {};
 // Default global properties.
-var doc = s3.document || document;
 var win = window;
+var doc = win.document || document;
 function S3(element, options) {
     return new S3.order(element,options) || {}
 }
@@ -299,6 +299,7 @@ function S3(element, options) {
                 this.pi = Math.PI / 180;
                 this.startAngles = 0;
                 this.stopAngles = Math.PI * 2;
+                this.custom = {};
             },
             299: function () {
                 var that = this

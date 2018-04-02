@@ -59,7 +59,8 @@
                     bMoveMode: thing.bMoveMode || shapeProperties.bMoveMode,
                     method: thing.method || shapeProperties.method,
                     x1: thing.x1 || shapeProperties.x1,
-                    y1: thing.y1 || shapeProperties.y1
+                    y1: thing.y1 || shapeProperties.y1,
+                    custom: thing.custom || shapeProperties.custom
                 })
             }
             Object.assign(this.iterator, combineParams[0]);
@@ -77,7 +78,7 @@
                     this.notNeed = false;
                     this.noMotionArrCount.push(j)
                 }
-                else if (!this.moveModel.indexOf(this.iterator.motion)) {
+                else if (s3.indexof(this.moveModel,this.iterator.motion) > 0) {
                     this.loop(ctx2M, shapeProperty, j, that),
                     this.need = true;
                 }

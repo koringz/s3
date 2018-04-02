@@ -1,0 +1,45 @@
+<html>
+<head>
+  <title>Drop Animation</title>
+  <style type="text/css">body{margin:0;}h1{ position: absolute; padding-left: 50px}</style>
+  <script src="./../lib/S3.js"></script>
+</head>
+<body>
+
+  <h1>s3.js Drop Animation</h1>
+  <canvas></canvas>
+
+</body>
+<script type="text/javascript">
+const offsetWidth = document.body.offsetWidth
+const offsetHeight = document.body.offsetHeight
+
+const Body = s3.body(s3.dom("canvas"))
+Body.set({ width: offsetWidth, height: offsetHeight })
+Body.component('circle', { type:'Array', property: pos() })
+
+function pos () {
+  var obj = null, ot = [], w = offsetWidth / 8, h = offsetHeight / 2
+  for ( var i = 1; i < 20; i++ ) {
+    obj = { color: '#AB5EEE', x: w + 22 * i, y: h, radius: i * 3 / 2, speed: .3, motion: 'move', method: EFFECTS }
+    ot.push(obj)
+  }
+  return ot
+}
+
+var h = offsetHeight / 2
+function EFFECTS (api) {
+  var current = api.current;
+  var y = current.y, x = current.x, s = current.speed, r = current.radius;
+  x -= s;
+  y += Math.pow(Math.cos(r + 2), 0.3);
+  api.setState( { x : x } );
+  api.setState( { y : y } );
+  if(x < -r * 2)
+    api.setState( { x: offsetWidth + r } );
+  else if( y > offsetHeight - r)
+    api.setState( { motion: 'stop'})
+  return [[x,y]]
+}
+</script>
+</html>

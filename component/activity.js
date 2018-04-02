@@ -26,7 +26,6 @@ body.prototype.set = function (options) {
     var shape = this.cache[0]();
     var results = shape.set(this.dist[0]);
     params.reduce(function (b, p) {
-        for (var i in p)
-            results.attr(i).val(p[i])
+        for (var i in p) results.attr(i).val(p[i])
     }, [])
 }

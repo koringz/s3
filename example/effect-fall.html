@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title>Fall Objects</title>
+  <style type="text/css">body{margin:0;}h1{ position: absolute; padding-left: 50px}</style>
+  <script src="./../lib/S3.js"></script>
+</head>
+<body>
+
+  <h1>s3.js Fall Objects</h1>
+  <canvas></canvas>
+
+</body>
+<script type="text/javascript">
+const offsetWidth = document.body.offsetWidth
+const offsetHeight = document.body.offsetHeight
+const _particles = particles()
+
+const Body = s3.body(s3.dom("canvas"))
+Body.set({ width: offsetWidth, height: offsetHeight })
+Body.component('circle', { type:'Array', property: _particles() })
+
+function particles () {
+  var df = 0.5;
+  var save = new Array();
+  var col = function  (a) { return 'rgba(171,94,238,'+a+')'}
+  var veno = function (x, y) { this.x = x; this.y = y; };
+  veno.prototype.add = function(v) { return new veno(this.x + v.x, this.y + v.y); };
+  veno.prototype.multi = function(f) { return new veno(this.x * f, this.y * f); };
+  var pos = new veno(0, 360);
+  var vel = new veno(50, 50);
+  var acce = new veno(0, -12);
+  return function (api) {
+    for (var d  = 0; d < 32; d++){
+      pos = pos.add(vel.multi(df));
+      vel = vel.add(acce.multi(df));
+      var tiny = {color: col(d/16), x: pos.x, y: pos.y, radius: 13};
+      save.push(tiny);
+    }
+    return save
+  }
+}
+</script>
+</html>
