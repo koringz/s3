@@ -11,13 +11,9 @@
 
 </body>
 <script type="text/javascript">
-const offsetWidth = document.body.offsetWidth
-const offsetHeight = document.body.offsetHeight
-const _particles = particles()
-
 const Body = s3.body(s3.dom("canvas"))
-Body.set({ width: offsetWidth, height: offsetHeight })
-Body.component('circle', { type:'Array', property: _particles() })
+Body.set({ width: document.body.offsetWidth, height:  document.body.offsetHeight })
+Body.component('circle', { type:'Array', property: particles()() })
 
 function particles () {
   var df = 0.5;
