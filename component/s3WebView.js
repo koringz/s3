@@ -1,4 +1,5 @@
 // Add a val in the methods.
+// Add a val in the methods.
 (function () {
     var order = function (element, options) {};
     order.prototype = {
@@ -17,7 +18,7 @@
             return typeof (options) === 'string'
         },
         isObj: function (options) {
-            return typeof (options) === 'object'
+            return options.constructor.name === 'Object'
         },
         isFun: function (options) {
             return typeof (options) === 'function'
@@ -25,29 +26,32 @@
         isNum: function (options) {
             return typeof (options) === 'number'
         },
-        isArr: function (options) {
-            return typeof (options) === 'array'
-        },
         isBool: function (argument) {
             return typeof (options) === 'boolean'
+        },
+        isUndefined: function (options) {
+            return typeof options === 'undefined'
+        },
+        isArr: function (options) {
+            return Array.isArray(options) || options.constructor.name == 'Array'
+        },
+        isNan: function (options) {
+            return isNaN(options)
+        },
+        isNull: function  (options) {
+            return options == null
         },
         trim: function (options) {
             return options.replace(/(\s*)/g, '');
         },
-        toString: function (options) {
-            return JSON.toString(options);
-        },
-        isUndefined: function (options) {
-            return typeof options == 'undefined'
+        stringify: function (options) {
+            return JSON.stringify(options);
         },
         parse: function (options) {
             return JSON.parse(options);
         },
         extend: function (prop, options) {
             for (var pop in options) {
-                if (pop in prop) {
-                    prop[pop] = options[pop]
-                }
                 prop[pop] = options[pop]
             }
             return prop
