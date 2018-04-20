@@ -1,0 +1,61 @@
+<html>
+<head>
+  <title>Loop Trigger</title>
+  <style type="text/css">body{margin:0;}h1{ position: absolute; padding-left: 50px}</style>
+  <script src="./../lib/S3.js"></script>
+</head>
+<body>
+
+  <h1>s3.js Loop Trigger</h1>
+  <canvas></canvas>
+
+</body>
+<script type="text/javascript">
+const Body = s3.body(s3.dom("canvas"))
+Body.set({ width: document.body.offsetWidth, height:  document.body.offsetHeight })
+Body.component('circle', { type:'Array', property: EFFECTS()() })
+
+function EFFECTS () {
+  var w = document.body.offsetWidth, h = document.body.offsetHeight;
+  var results = new Array();
+  var radius = 8;
+  var perha = Math.PI * 2 * Math.sqrt(3);
+  return function () {
+    for (var i = 0; i < 38; i++) {
+      var arcMulti = perha * i;
+      var arcRadius = perha * radius * 2;
+      obj = { color: '#AB5EfE', x: w/2 + arcRadius * Math.sin(arcMulti), y: h/2 + arcRadius * Math.cos(arcMulti), radius: radius, speed:.1, motion:'move', method:Fall, custom: { index: i, real: true } };
+      results.push(obj);
+    }
+    return results
+  }
+}
+
+function Fall (api) {
+    var current = api.current;
+    var index = current.custom.index;
+    var real = current.custom.real
+    if(real) {
+      loadingStatus(api,index)
+    }
+    return [[current.x, current.y]]
+}
+
+var times = null;
+function loadingStatus (api,index) {
+  times = setTimeout(function () {
+    api.properties[index].color = '#fff';
+    if(index == 37) lastOfOne(api,37);
+  },index * 250);
+  if(times) times = null;
+  api.properties[index].custom.real = false;
+}
+
+function lastOfOne (api, each) {
+  for (var i = 0; i <= each; i++) {
+    api.properties[i].color = '#AB5EEE';
+    api.properties[i].custom.real = true;
+  };
+}
+</script>
+</html>
