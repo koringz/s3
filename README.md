@@ -2,7 +2,7 @@
 
 <b>S3.js</b> 只是创建一个简单的应用程序与画布[Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API),它能实现简单的游戏动画效果,目前这个库只支持绘画circle的功能,后续更新中...
 
-![S3.js sample](http://images.cnblogs.com/cnblogs_com/hao5599/695043/o_1.png)
+![S3.js sample](https://github.com/koringz/s3/blob/master/images/7.png)
 
 ## Usage
 
