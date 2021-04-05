@@ -6,8 +6,6 @@
 
 ## Usage
 
-![S3.js Circle](http://images.cnblogs.com/cnblogs_com/hao5599/695043/o_5.png)
-
 ```js
 const Body = s3.body(s3.dom('canvas'));
 Body.component('circle', { type:'Array', property: [
@@ -17,7 +15,7 @@ Body.component('circle', { type:'Array', property: [
 
 ## Draw multiple
 
-![S3.js multi Circle](http://images.cnblogs.com/cnblogs_com/hao5599/695043/o_99.png)
+![S3.js multi Circle](https://github.com/koringz/s3/blob/master/images/99.png)
 
 ```js
 const Body = s3.body(s3.dom('canvas'));
