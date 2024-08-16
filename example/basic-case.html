@@ -2,15 +2,15 @@
 <head>
   <title>basic case</title>
   <style type="text/css">h1{ position: absolute; padding-left: 50px} body{ margin: 0;}</style>
-  <script src="./../lib/S3.js"></script>
+<script src="./../lib/S3.js"></script>
+
 </head>
 <body>
 
   <h1>s3.js Draw More Circle </h1>
   <canvas></canvas>
 
-</body>
-  <script type="text/javascript" src="./../component/init.js"></script>
+  <!--<script type="text/javascript" src="./../component/init.js"></script>
   <script type="text/javascript" src="./../component/s3WebView.js"></script>
   <script type="text/javascript" src="./../component/pluginEntry.js"></script>
   <script type="text/javascript" src="./../component/activity.js"></script>
@@ -18,19 +18,22 @@
   <script type="text/javascript" src="./../component/excutePool.js"></script>
   <script type="text/javascript" src="./../component/systemWebView.js"></script>
   <script type="text/javascript" src="./../component/drawQueue.js"></script>
-  <script type="text/javascript" src="./../component/pluginManage.js"></script>
+  <script type="text/javascript" src="./../component/pluginManage.js"></script>-->
+</body>
+
 
 <script type="text/javascript">
 const Body = s3.body(s3.dom("canvas"))
 Body.set({ height: document.body.offsetHeight, width: document.body.offsetWidth})
 Body.component('circle', { type:'Array', property: [
-  {color: '#AB5EEE', x: 100, y: 200, radius: 50, startAngles: 90, stopAngles: 360},
+  {color: '#AB5EEE', x: 100, y: 200, radius: 50, startAngles: 90, stopAngles: 360, alpha: 0.8},
   {color: '#701B73', x: 250, y: 200, radius: 50, startAngles: 90, stopAngles: 270},
   {color: '#5716D9', x: 400, y: 200, radius: 50, startAngles: 90, stopAngles: 180},
+  {color: '#701B73', x: 600, y: 200, radius: 50, borderColor: '#5716D9', thick: 6, startAngles: 0, stopAngles: 360},
 
   {color: '#AB5EEE', x: 280, y: 380, radius: 50, startAngles: 270, stopAngles: 360},
   {color: '#701B73', x: 280, y: 380, radius: 50, startAngles: 180, stopAngles: 270},
-  {color: '#5716D9', x: 280, y: 380, radius: 50, startAngles: 90, stopAngles: 180},
+  {color: '#5716D9', x: 280, y: 380, radius: 50, startAngles: 90, stopAngles: 180, alpha: 0.5},
   {color: '#a0ee3a', x: 280, y: 380, radius: 50, startAngles: 0, stopAngles: 90},
 ]})
 </script>

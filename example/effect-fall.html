@@ -29,7 +29,7 @@ function particles () {
     for (var d  = 0; d < 32; d++){
       pos = pos.add(vel.multi(df));
       vel = vel.add(acce.multi(df));
-      var tiny = {color: col(d/16), x: pos.x, y: pos.y, radius: 13};
+      var tiny = {color: col(d/16), x: pos.x, y: pos.y, borderColor: '#f2a', thick: 2, radius: 13};
       save.push(tiny);
     }
     return save

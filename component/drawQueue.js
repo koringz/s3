@@ -60,7 +60,10 @@
                     method: thing.method || shapeProperties.method,
                     x1: thing.x1 || shapeProperties.x1,
                     y1: thing.y1 || shapeProperties.y1,
-                    custom: thing.custom || shapeProperties.custom
+                    custom: thing.custom || shapeProperties.custom,
+                    thick: thing.thick || shapeProperties.thick,
+                    borderColor: thing.borderColor || shapeProperties.borderColor,
+                    alpha: thing.alpha || shapeProperties.alpha
                 })
             }
             Object.assign(this.iterator, combineParams[0]);
@@ -69,10 +72,12 @@
             for (var j = 0, len = particle.length; j < len; j++) {
                 this.mergeProperties(shapeProperty, particle[j]);
                 ctx2M.hook2D('beginPath');
-                ctx2M.hook2D('moveTo', {
-                    x: this.iterator.x,
-                    y: this.iterator.y
-                });
+                if(this.iterator.stopAngles - this.iterator.startAngles !== shapeProperty.stopAngles){
+                    ctx2M.hook2D('moveTo', {
+                        x: this.iterator.x,
+                        y: this.iterator.y
+                    });
+                }
                 if (this.iterator.motion == shapeProperty.motion) {
                     this._arc(ctx2M, null);
                     this.notNeed = false;
@@ -86,7 +91,17 @@
                 ctx2M.hook2D('fillStyle', {
                     color: this.iterator.color
                 });
+                ctx2M.hook2D('globalAlpha',{
+                    alpha: this.iterator.alpha
+                });
                 ctx2M.hook2D('fill');
+                ctx2M.hook2D('lineWidth', {
+                    thick: this.iterator.thick
+                });
+                ctx2M.hook2D('strokeStyle', {
+                    borderColor: this.iterator.borderColor
+                });
+                ctx2M.hook2D('stroke');
                 ctx2M.hook2D('closePath');
                 ctx2M.hook2D('restore')
             }

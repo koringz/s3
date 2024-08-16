@@ -14,25 +14,25 @@ const Body = s3.body(s3.dom("canvas"));
 Body.set({ width: w, height: h });
 Body.component('circle', { type: 'Array', property: EFFECTS() });
 function EFFECTS() {
-    for (var i = 0, results = new Array(); i < 111; i++) {
-        let theta = Math.random() * Math.PI * 2, random =  Math.random();
-        obj = {color:'#AB5EEE', x:w/2, y:h/2, speed:random, radius:12, motion:'move', method:Fall(), custom: { x:Math.cos(theta) * 10, y:Math.sin(theta) * 10}};
-        results.push(obj)
-    }
-    return results
+  for (var i = 0, results = new Array(); i < 111; i++) {
+    let theta = Math.random() * Math.PI * 2, random =  Math.random();
+    obj = {color:'#AB5EEE', x:w/2, y:h/2, speed:random, radius:12, motion:'move', method:Fall(), custom: { x:Math.cos(theta) * 10, y:Math.sin(theta) * 10}};
+    results.push(obj)
+  }
+  return results
 }
 function Fall () {
-    function Veno(x, y) { this.x = x; this.y = y };
-    Veno.prototype.add = function (v) { return new Veno(this.x + v.x, this.y + v.y) };
-    Veno.prototype.multi = function (f) { return new Veno(this.x * f, this.y * f) };
-    function Particle (particles) { return particles.position.add(particles.velocity.multi(0.05)); };
-    return function (api) {
-        let current = api.current, speed = current.speed, x = current.x, y = current.y, x1 = current.x1, y1 = current.y1, r = current.radius * 2;
-        let posi = Particle({ position: new Veno(x, y), velocity: new Veno(current.custom.x * speed, current.custom.y * speed) });
-        if (y < -r || y > y1 + r || x < -r|| x > x1 + r) api.setState({ x: x1 / 2, y: y1 / 2 });
-        else api.setState({ x: posi.x, y: posi.y });
-        return [[posi.x, posi.y]]
-    }
+  function Veno(x, y) { this.x = x; this.y = y };
+  Veno.prototype.add = function (v) { return new Veno(this.x + v.x, this.y + v.y) };
+  Veno.prototype.multi = function (f) { return new Veno(this.x * f, this.y * f) };
+  function Particle (particles) { return particles.position.add(particles.velocity.multi(0.05)); };
+  return function (api) {
+    let current = api.current, speed = current.speed, x = current.x, y = current.y, x1 = current.x1, y1 = current.y1, r = current.radius * 2;
+    let posi = Particle({ position: new Veno(x, y), velocity: new Veno(current.custom.x * speed, current.custom.y * speed) });
+    if (y < -r || y > y1 + r || x < -r|| x > x1 + r) api.setState({ x: x1 / 2, y: y1 / 2 });
+    else api.setState({ x: posi.x, y: posi.y });
+    return [[posi.x, posi.y]]
+  }
 }
 </script>
 </html>

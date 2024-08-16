@@ -42,7 +42,7 @@
             this.data.fillStyle = options.color;
         },
         arc: function (options) {
-            this.data.arc(options.x, options.y, options.radius, options.startAngles, options.stopAngles);
+            this.data.arc(options.x, options.y, options.radius, options.startAngles, options.stopAngles, options.bool);
         },
         lineTo: function (options) {
             this.data.lineTo(options.x, options.y);
@@ -52,6 +52,9 @@
         },
         closePath: function () {
             this.data.closePath();
+        },
+        globalAlpha: function (options) {
+            this.data.globalAlpha = options.alpha
         },
         strokeStyle: function (options) {
             this.data.strokeStyle = options.borderColor;

@@ -33,7 +33,7 @@
             return typeof options === 'undefined'
         },
         isArr: function (options) {
-            return Array.isArray(options) || options.constructor.name == 'Array'
+            return Array.isArray(options) || options.constructor.name === 'Array'
         },
         isNan: function (options) {
             return isNaN(options)

@@ -1,0 +1,90 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>visual effect</title>
+  <style type="text/css">canvas{width: 100%  }h3{  position: absolute; padding-left: 50px} body{ margin: 0;}</style>
+  <!-- <script src="./../lib/S3.js"></script> -->
+</head>
+<body>
+  <h3>s3.js 画直线</h3>
+  <canvas></canvas>
+</body>
+  <script type="text/javascript" src="./../component/init.js"></script>
+  <script type="text/javascript" src="./../component/s3WebView.js"></script>
+  <script type="text/javascript" src="./../component/pluginEntry.js"></script>
+  <script type="text/javascript" src="./../component/activity.js"></script>
+  <script type="text/javascript" src="./../component/loadConfig.js"></script>
+  <script type="text/javascript" src="./../component/excutePool.js"></script>
+  <script type="text/javascript" src="./../component/systemWebView.js"></script>
+  <script type="text/javascript" src="./../component/drawQueue.js"></script>
+  <script type="text/javascript" src="./../component/pluginManage.js"></script>
+<script type="text/javascript">
+const ES = pos()();
+
+const Body = s3.body(s3.dom("canvas"));
+Body.set({ width: document.body.offsetWidth, height: document.body.offsetHeight });
+Body.component('circle', { type:'Array', property: ES });
+
+
+
+/*
+  画一条直线
+  y = kx + b
+  k 是斜率
+  b 是常数
+*/
+function pos() {
+  var w = document.body.offsetWidth, h = document.body.offsetHeight;
+  let x0  =0
+  let y0 = 0
+  let b = 0
+
+  let x_end = 500
+  let y_end = 100
+
+  // 移动坐标 直线的斜率
+  let k = (x_end - x0)/(y_end - y0)
+
+  // 初始值 y
+  let y = y0
+  return () => {
+    let results = []
+    for (let i = 0; i < x_end; ++i) {
+      // debugger
+      i += 15
+      const y_val = y0 + i + k
+      let obj = { 
+          color: '#AB5EEE', 
+          x:  i, 
+          y:  y + y_val, 
+          radius: 5
+        };
+        results.push(obj);
+    }
+    console.log(JSON.stringify(results))
+    return results
+  }
+}
+
+
+function EFFECTS () {
+  var w = document.body.offsetWidth, h = document.body.offsetHeight;
+  var results = new Array();
+  var radius = 5;
+  var perha = Math.PI * Math.sqrt(2);
+  return function () {
+    for (var i = 0; i < 600; i++) {
+      var r = radius * Math.sqrt(i * 5), a = perha * i;
+      obj = { 
+        color: '#AB5EEE', 
+        x: w/2 + r * Math.sin(a), 
+        y: h/2 + r * Math.cos(a), 
+        radius: radius 
+      };
+      results.push(obj);
+    }
+    return results
+  }
+}
+</script>
+</html>

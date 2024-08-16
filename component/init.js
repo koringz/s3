@@ -23,26 +23,27 @@ function S3(element, options) {
 (function () {
     var Am, At, Atp, Ata, Atd, Att, Atr, Ats, Ata, Atc, Atc20, Atpc, Atc30, Atsc, At_s, Ac, Acd, Acp, Acw, Ashape, Acls, Acas, Acrs, Acws, Acss, Achs, AchIs, Aces, Acvdp, Ac_2d, Accp, Ac_, Acm, Ach, Aw, Al, Aset, Af, Bc, Bp, Br, // functional property
     speed, times, logger, processing, requestAnimation, // be used to configure the declared properties.
-    put = {}, counts = 0, category = null, init = void {};
-    init = new (function (_={a:[], puts:put}) {
-        return function (mySelf={}) {
-            mySelf.self = _.a;
-            mySelf.puts = _.puts;
-            mySelf.self.push(mySelf);
-            var childs, closureCollection;
-            closureCollection = _.a;
-            for (var i = 0, iterator = mySelf.self[0], len = iterator.length; i < len; i++) {
-                closureCollection[i] = [];
-                var child = iterator[i];
-                for (var j in child) {
-                    childs = child[j];
-                    try {
-                        if ("function" !== typeof childs) {
-                            throw "你没有选择函数！"
-                            //You are not define function mehtods.
-                        } else {
-                            // output function methods save to between one object and another object.
-                            switch (i) {
+    empty = [], mount = {}, category = null, init = void this;
+    init = new (function (_={empties: empty, mounts: mount}) {
+        return function (group) {
+            group.empties = _.empties;
+            group.mounts = _.puts;
+            return eachEveryJson(group, this)
+        }(storeWillEachEveryJsonGroup())
+    });
+    function eachEveryJson (group, that) {
+        for (var i = 0, closureCollection = group.empties, len = group.length; i < len; i++) {
+            closureCollection[i] = [];
+            var every = group[i];
+            for (var j in every) {
+                var childs = every[j];
+                try {
+                    if ("function" !== typeof childs) {
+                        throw "你没有选择函数！"
+                        //You are not define function mehtods.
+                    } else {
+                        // output function methods save to between one object and another object.
+                        switch (i) {
                             case 0:
                                 closureCollection[i][j] = (childs);
                                 break;
@@ -57,20 +58,20 @@ function S3(element, options) {
                                 break;
                             default:
                                 break;
-                            }
                         }
-                    } catch (e) {
-                        throw e
                     }
-                    ;
+                } catch (e) {
+                    throw e
                 }
-                ;
             }
-            return closureCollection[0][2](),
-            closureCollection[0][3](),
-            closureCollection[0][1].call(this, closureCollection),
-            closureCollection
-        }([{
+        }
+        return closureCollection[0][2](),
+        closureCollection[0][3](),
+        closureCollection[0][1].call(that, closureCollection),
+        closureCollection
+    }
+    function storeWillEachEveryJsonGroup () {
+        var releaseInit = {
             1: function (closure) {
                 Am = Array.prototype.slice;
                 At = closure[1][99];
@@ -188,306 +189,312 @@ function S3(element, options) {
                 }// gesture events
                 ]
             }
-        }, {
-            99: function () {
-                this.name = 'tool';
-                this.newEmpty = [];
-                this.pipe = [];
-                this.life = [];
-                this.defaults = {};
-                this.data = arguments;
-                var data = this.data[0];
-                var messages = S3.messages;
-                for (var i in messages) {
-                    this[i] = messages[i];
+        };
+        var store = [
+            {
+                99: function () {
+                    this.name = 'tool';
+                    this.newEmpty = [];
+                    this.pipe = [];
+                    this.life = [];
+                    this.defaults = {};
+                    this.data = arguments;
+                    var data = this.data[0];
+                    var messages = S3.messages;
+                    for (var i in messages) {
+                        this[i] = messages[i];
+                    }
+                    for (var k in data) {
+                        if (k === 'webkitImageSmoothingEnabled' || k === 'mozImageSmoothingEnabled' || k === 'msImageSmoothingEnabled')
+                            k = 'imageSmoothingEnabled';
+                        var _thing = data[k];
+                        var m = 0;
+                        var n = 0;
+                        if (s3.isStr(_thing) || s3.isNum(_thing) || s3.isBool(_thing)) {
+                            this.newEmpty.push(k);
+                            this.defaults[k] = {
+                                name: 'withoutMethod',
+                                type: typeof (data[k])
+                            };
+                            this.config['withoutMethod'] = n++;
+                        } else if (s3.isFun(_thing)) {
+                            this.newEmpty.push(k);
+                            this.defaults[k] = {
+                                name: 'withMethod',
+                                type: typeof (data[k]),
+                                length: data[k].length
+                            };
+                            this.config['withMethod'] = m++;
+                        }
+                    }
+                },
+                88: function (num) {
+                    this.name = 'amount';
+                    this.nums = num;
+                },
+                86: function () {
+                    this.name = 'createGradient';
+                },
+                85: function () {
+                    this.name = 'createGradient20';
+                },
+                84: function () {
+                    this.name = 'createGradient30';
+                },
+                83: function () {
+                    this.name = 'pointerConfig';
+                    this.TYPE = arguments[0].type;
+                    this.PROPERTY = arguments[0].property;
+                },
+                82: function () {
+                    this.name = 'startConfig';
+                    this.SPEED = 0.999999999;
+                    this.OPEN = 0;
+                },
+                81: function () {
+                    this.name = 'state';
+                    this.state = null;
+                },
+                300: function () {
+                    this.name = 'shape';
+                    this.bg = "rgb(255,255,255)"
+                    this.borderColor = 'transparent';
+                    this.lineWidth = 3;
+                    this.radius = 36;
+                    this.thick = 0;
+                    this.motion = 'stop';
+                    this.trails = 1;
+                    this.hertz = 10;
+                    this.rate = 5;
+                    // start set
+                    this.SPEED_3 = null;
+                    this.speed = this.SPEED_3 || 0.2;
+                    this.bMoveMode = !1;
+                    this.opposite = 1;
+                    this.direction = 'top';
+                    this.slope = 0.99996;
+                    this.smooth = 1;
+                    this.alpha = 1;
+                    this.currentTimes = (new Date).getTime();
+                    this.buffer = new ArrayBuffer(16);
+                    this.fdata = new Float32Array(this.buffer,0,3);
+                    this.color = this.fdata;
+                    this._device = win.devicePixelRatio;
+                    // start position x
+                    this.x = Math.round(Math.random() * 36 + 36);
+                    // start position y
+                    this.y = Math.round(Math.random() * 36 + 36);
+                    // end position x1
+                    this.x1 = Math.round(Math.random() * 36 + 36) * 2;
+                    // end position y1
+                    this.y1 = Math.round(Math.random() * 36 + 36) * 2;
+                    this.calculationProperty = {
+                        createCircle: init[1][239].createCircle,
+                    };
+                    this.readyPosition = 50;
+                    this.beginPosition = {
+                        x: 50,
+                        y: null
+                    };
+                    this.endPosition = {
+                        x: 500,
+                        y: null
+                    };
+                    this.pi = Math.PI / 180;
+                    this.defaultAngles = Math.PI * 2;
+                    this.startAngles = 0;
+                    this.stopAngles = this.defaultAngles;
+                    this.custom = {};
+                },
+                299: function () {
+                    var that = this
+                    this.name = 'circle';
+                    this.data = [];
+                    this.noMotionArrCount = [];
+                    this.noMotionArrObj = [];
+                    this.need = false;
+                    this.notNeed = false;
+                    this.o_OPEN = 0;
+                    this.iterator = {};
+                    this.callState = {};
+                    this.setState = function (val, option) {
+                        that.callState.setState = val
+                    }
+                    this.method = function () {}
+                    this.curve = 1;
+                    this.moveModel = ['move', 'stop'];
+                    this.bMoveMode = !1;
+                    this.currentTimes = (new Date).getTime();
+                    this.collection = arguments[0];
+                },
+                298: function () {
+                    this.name = 'line';
+                    this.data = [];
+                    this.iterator = {};
+                    this.collection = arguments[0];
+                },
+                297: function () {
+                    this.name = 'arc';
+                    this.data = [];
+                    this.iterator = {};
+                    this.collection = arguments[0];
+                },
+                296: function () {
+                    this.name = 'rect';
+                    this.data = [];
+                    this.iterator = {};
+                    this.collection = arguments[0];
+                },
+                295: function () {
+                    this.name = 'wave';
+                    this.stop = !0;
+                    this.s_SPEED = 0;
+                    this.o_OPEN = 0;
+                    this.data = [];
+                    this.iterator = {};
+                    this.collection = arguments[0];
+                },
+                294: function () {
+                    this.name = 'sectors';
+                    this.data = [];
+                    this.iterator = {};
+                    this.collection = arguments[0];
+                },
+                293: function () {
+                    this.name = 'hat';
+                    this.data = [];
+                    this.iterator = {};
+                    this.collection = arguments[0];
+                },
+                292: function () {
+                    this.name = 'hill';
+                    this._direction = ['top', 'left', 'right', 'bottom'];
+                    this.data = [];
+                    this.iterator = {};
+                    this.radius = 0.0001;
+                    this.collection = arguments[0];
+                },
+                291: function () {
+                    this.name = 'ellipse';
+                    this._direction = ['top', 'left', 'right', 'bottom'];
+                    this.data = [];
+                    this.iterator = {};
+                    this.radius = 0.0001;
+                    this.collection = arguments[0];
+                },
+                280: function () {
+                    this.name = 'validateDrawProperty';
+                    this.absolute_position;
+                    this.setMatchData;
+                    this.cross;
+                    this.select = [];
+                    this.iterator = {};
+                    this.data = [];
+                    this.reset = [];
+                    // input property
+                    // Define circle shape property, params name(:A1)
+                    // Define line shape property, params name(:B2)
+                    this.main = {};
+                    // defaults property
+                    this.inhert = {};
+                    // output property
+                    this.out = {};
+                    // storage params
+                    this.save = [arguments[0], arguments[1]];
+                    // reset property
+                    this.reset[0] = 0;
+                    this.reset[1] = 0;
+                },
+                279: function () {
+                    this.name = 'compareProperty';
+                    this.iterator = {};
+                    this.data = [];
+                },
+                266: function (options) {
+                    this.name = 'position';
+                    this.data = [options];
+                },
+                260: function (options) {
+                    this.name = 'distance';
+                    this.data = [options];
+                    this.f_speed;
+                },
+                250: function (options) {
+                    this.name = 'context';
+                    this.data = [options];
+                },
+                240: function () {
+                    this.name = 'waveShape';
+                    this.data = [];
+                },
+                239: function () {
+                    this.name = 'circleShape';
+                    this.data = [];
+                },
+                232: function () {
+                    this.name = 'hillShape';
+                    this.data = [];
+                },
+                219: function () {
+                    this.name = 'math';
+                    this.data = [];
+                    this.ABS = [];
+                    this.framesRate = [];
+                },
+                499: function () {
+                    this.name = 'set';
+                    this.data = [];
+                    if (typeof arguments === 'object')
+                        this.data.push(arguments[0]);
+                },
+                999: function () {
+                    this.name = 'freezeProperty';
+                    this.isFreezeProperties = arguments[0];
+                    Object.freeze(this.isFreezeProperties)
+                },
+                1000: function () {
+                    this.name = 'plugin';
+                    shape.plugin(arguments);
+                },
+                1111: function () {
+                    this.name = 'cache';
+                },
+                1099: function () {
+                    this.name = 'cover2DProperty';
+                },
+                1299: function () {
+                    this.name = 'render';
+                },
+            },
+            {
+                1: function () {
+                    this.name = 'get';
+                    // used gesture pointer.
+                },
+                2: function () {
+                    this.name = 'set';
+                },
+                3: function () {
+                    this.name = 'add';
+                },
+                4: function () {
+                    this.name = 'on';
                 }
-                for (var k in data) {
-                    if (k === 'webkitImageSmoothingEnabled' || k === 'mozImageSmoothingEnabled' || k === 'msImageSmoothingEnabled')
-                        k = 'imageSmoothingEnabled';
-                    var _thing = data[k];
-                    var m = 0;
-                    var n = 0;
-                    if (s3.isStr(_thing) || s3.isNum(_thing) || s3.isBool(_thing)) {
-                        this.newEmpty.push(k);
-                        this.defaults[k] = {
-                            name: 'withoutMethod',
-                            type: typeof (data[k])
-                        };
-                        this.config['withoutMethod'] = n++;
-                    } else if (s3.isFun(_thing)) {
-                        this.newEmpty.push(k);
-                        this.defaults[k] = {
-                            name: 'withMethod',
-                            type: typeof (data[k]),
-                            length: data[k].length
-                        };
-                        this.config['withMethod'] = m++;
+            },
+            {
+                6: function () {
+                    this.name = 'gesture';
+                    // used gesture pointer.
+                    return {
+                        linear: function (argument) {},
+                        easein: function (argument) {},
+                        easeout: function (argument) {}
                     }
                 }
-            },
-            88: function (num) {
-                this.name = 'amount';
-                this.nums = num;
-            },
-            86: function () {
-                this.name = 'createGradient';
-            },
-            85: function () {
-                this.name = 'createGradient20';
-            },
-            84: function () {
-                this.name = 'createGradient30';
-            },
-            83: function () {
-                this.name = 'pointerConfig';
-                this.TYPE = arguments[0].type;
-                this.PROPERTY = arguments[0].property;
-            },
-            82: function () {
-                this.name = 'startConfig';
-                this.SPEED = 0.999999999;
-                this.OPEN = 0;
-            },
-            81: function () {
-                this.name = 'state';
-                this.state = null;
-            },
-            300: function () {
-                this.name = 'shape';
-                this.bg = "rgb(255,255,255)"
-                this.borderColor = '#333';
-                this.lineWidth = 3;
-                this.radius = 36;
-                this.thick = 5;
-                this.motion = 'stop';
-                this.trails = 1;
-                this.hertz = 10;
-                this.rate = 5;
-                // start set
-                this.SPEED_3 = null;
-                this.speed = this.SPEED_3 || 0.2;
-                this.bMoveMode = !1;
-                this.opposite = 1;
-                this.direction = 'top';
-                this.slope = 0.99996;
-                this.smooth = 1;
-                this.currentTimes = (new Date).getTime();
-                this.buffer = new ArrayBuffer(16);
-                this.fdata = new Float32Array(this.buffer,0,3);
-                this.color = this.fdata;
-                this._device = win.devicePixelRatio;
-                // start position x
-                this.x = Math.round(Math.random() * 36 + 36);
-                // start position y
-                this.y = Math.round(Math.random() * 36 + 36);
-                // end position x1
-                this.x1 = Math.round(Math.random() * 36 + 36) * 2;
-                // end position y1
-                this.y1 = Math.round(Math.random() * 36 + 36) * 2;
-                this.calculationProperty = {
-                    createCircle: init[1][239].createCircle,
-                };
-                this.readyPosition = 50;
-                this.beginPosition = {
-                    x: 50,
-                    y: null
-                };
-                this.endPosition = {
-                    x: 500,
-                    y: null
-                };
-                this.pi = Math.PI / 180;
-                this.startAngles = 0;
-                this.stopAngles = Math.PI * 2;
-                this.custom = {};
-            },
-            299: function () {
-                var that = this
-                this.name = 'circle';
-                this.data = [];
-                this.noMotionArrCount = [];
-                this.noMotionArrObj = [];
-                this.need = false;
-                this.notNeed = false;
-                this.o_OPEN = 0;
-                this.iterator = {};
-                this.callState = {};
-                this.setState = function (val, option) {
-                    that.callState.setState = val
-                }
-                this.method = function () {}
-                ;
-                this.curve = 1;
-                this.moveModel = ['move', 'stop'];
-                this.bMoveMode = !1;
-                this.currentTimes = (new Date).getTime();
-                this.collection = arguments[0];
-            },
-            298: function () {
-                this.name = 'line';
-                this.data = [];
-                this.iterator = {};
-                this.collection = arguments[0];
-            },
-            297: function () {
-                this.name = 'arc';
-                this.data = [];
-                this.iterator = {};
-                this.collection = arguments[0];
-            },
-            296: function () {
-                this.name = 'rect';
-                this.data = [];
-                this.iterator = {};
-                this.collection = arguments[0];
-            },
-            295: function () {
-                this.name = 'wave';
-                this.stop = !0;
-                this.s_SPEED = 0;
-                this.o_OPEN = 0;
-                this.data = [];
-                this.iterator = {};
-                this.collection = arguments[0];
-            },
-            294: function () {
-                this.name = 'sectors';
-                this.data = [];
-                this.iterator = {};
-                this.collection = arguments[0];
-            },
-            293: function () {
-                this.name = 'hat';
-                this.data = [];
-                this.iterator = {};
-                this.collection = arguments[0];
-            },
-            292: function () {
-                this.name = 'hill';
-                this._direction = ['top', 'left', 'right', 'bottom'];
-                this.data = [];
-                this.iterator = {};
-                this.radius = 0.0001;
-                this.collection = arguments[0];
-            },
-            291: function () {
-                this.name = 'ellipse';
-                this._direction = ['top', 'left', 'right', 'bottom'];
-                this.data = [];
-                this.iterator = {};
-                this.radius = 0.0001;
-                this.collection = arguments[0];
-            },
-            280: function () {
-                this.name = 'validateDrawProperty';
-                this.absolute_position;
-                this.setMatchData;
-                this.cross;
-                this.select = [];
-                this.iterator = {};
-                this.data = [];
-                this.reset = [];
-                // input property
-                // Define circle shape property, params name(:A1)
-                // Define line shape property, params name(:B2)
-                this.main = {};
-                // defaults property
-                this.inhert = {};
-                // output property
-                this.out = {};
-                // storage params
-                this.save = [arguments[0], arguments[1]];
-                // reset property
-                this.reset[0] = 0;
-                this.reset[1] = 0;
-            },
-            279: function () {
-                this.name = 'compareProperty';
-                this.iterator = {};
-                this.data = [];
-            },
-            266: function (options) {
-                this.name = 'position';
-                this.data = [options];
-            },
-            260: function (options) {
-                this.name = 'distance';
-                this.data = [options];
-                this.f_speed;
-            },
-            250: function (options) {
-                this.name = 'context';
-                this.data = [options];
-            },
-            240: function () {
-                this.name = 'waveShape';
-                this.data = [];
-            },
-            239: function () {
-                this.name = 'circleShape';
-                this.data = [];
-            },
-            232: function () {
-                this.name = 'hillShape';
-                this.data = [];
-            },
-            219: function () {
-                this.name = 'math';
-                this.data = [];
-                this.ABS = [];
-                this.framesRate = [];
-            },
-            499: function () {
-                this.name = 'set';
-                this.data = [];
-                if (typeof arguments === 'object')
-                    this.data.push(arguments[0]);
-            },
-            999: function () {
-                this.name = 'freezeProperty';
-                this.isFreezeProperties = arguments[0];
-                Object.freeze(this.isFreezeProperties)
-            },
-            1000: function () {
-                this.name = 'plugin';
-                shape.plugin(arguments);
-            },
-            1111: function () {
-                this.name = 'cache';
-            },
-            1099: function () {
-                this.name = 'cover2DProperty';
-            },
-            1299: function () {
-                this.name = 'render';
-            },
-        }, {
-            1: function () {
-                this.name = 'get';
-                // used gesture pointer.
-            },
-            2: function () {
-                this.name = 'set';
-            },
-            3: function () {
-                this.name = 'add';
-            },
-            4: function () {
-                this.name = 'on';
             }
-        }, {
-            6: function () {
-                this.name = 'gesture';
-                // used gesture pointer.
-                return {
-                    linear: function (argument) {},
-                    easein: function (argument) {},
-                    easeout: function (argument) {}
-                }
-            }
-        }])
+        ];
+        return store.unshift(releaseInit), store
     }
-    );
     S3.init = init;
     S3.category = category;
     S3.Aset = Aset;

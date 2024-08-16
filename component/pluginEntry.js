@@ -1,6 +1,6 @@
 function Shape(str, options, previous) {
     // inject parameters;
-    // Extend previous method of preotype chain properties.
+    // Extend previous method of prototype chain properties.
     return new S3.category[1][99],this;
 }
 Shape.plugin = function () {
