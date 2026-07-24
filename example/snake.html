@@ -1,0 +1,272 @@
+<html>
+  <head>
+    <title>🐍 贪吃蛇</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0d1117;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: system-ui;
+      }
+      .wrap {
+        background: #161b22;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      h2 {
+        color: #c9d1d9;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      h2 span {
+        color: #58a6ff;
+      }
+      .score {
+        color: #8b949e;
+        font-size: 14px;
+      }
+      .score b {
+        color: #f1c40f;
+        font-size: 18px;
+      }
+      canvas {
+        display: block;
+        border-radius: 8px;
+        background: #0d1117;
+      }
+      .tip {
+        color: #8b949e;
+        font-size: 12px;
+        text-align: center;
+        margin-top: 10px;
+      }
+    </style>
+    <script src="./../lib/S3.js"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="header">
+        <h2>🐍 <span>贪吃蛇</span></h2>
+        <div class="score">🏆 <b id="score">0</b></div>
+      </div>
+      <canvas id="c"></canvas>
+      <div class="tip">⬆⬇⬅➡ 方向键控制 | 空格重新开始</div>
+    </div>
+
+    <script>
+      var W = 400,
+        H = 400;
+      var COLS = 10,
+        ROWS = 10,
+        SIZE = W / COLS;
+
+      // 外部数据数组（所有图形合并到一个 rect 组件）
+      var allData = [];
+
+      var Body = s3.body(s3.dom("#c"));
+      Body.set({ width: W, height: H });
+      Body.component("rect", {
+        type: "Array",
+        bg: "#0d1117",
+        property: allData,
+      });
+
+      // ==================== 游戏逻辑 ====================
+      var snake = [],
+        food = {},
+        direction,
+        nextDirection,
+        score,
+        gameOver = false,
+        timer = null;
+
+      function init() {
+        snake = [
+          { x: 5, y: 5 },
+          { x: 4, y: 5 },
+          { x: 3, y: 5 },
+        ];
+        direction = nextDirection = "right";
+        score = 0;
+        gameOver = false;
+        document.getElementById("score").textContent = "0";
+        spawnFood();
+        syncView();
+      }
+
+      function spawnFood() {
+        var used = {};
+        snake.forEach(function (s) {
+          used[s.x + "," + s.y] = true;
+        });
+        var free = [];
+        for (var x = 0; x < COLS; x++)
+          for (var y = 0; y < ROWS; y++)
+            if (!used[x + "," + y]) free.push({ x: x, y: y });
+        if (free.length) food = free[Math.floor(Math.random() * free.length)];
+        else gameOver = true;
+      }
+
+      function update() {
+        if (gameOver) {
+          syncView();
+          return;
+        }
+        direction = nextDirection;
+        var head = snake[0],
+          nh = { x: head.x, y: head.y };
+        if (direction === "right") nh.x++;
+        else if (direction === "left") nh.x--;
+        else if (direction === "up") nh.y--;
+        else if (direction === "down") nh.y++;
+        if (nh.x < 0 || nh.x >= COLS || nh.y < 0 || nh.y >= ROWS) {
+          gameOver = true;
+          syncView();
+          return;
+        }
+        for (var i = 0; i < snake.length; i++)
+          if (snake[i].x === nh.x && snake[i].y === nh.y) {
+            gameOver = true;
+            syncView();
+            return;
+          }
+        snake.unshift(nh);
+        if (nh.x === food.x && nh.y === food.y) {
+          score += 10;
+          document.getElementById("score").textContent = score;
+          spawnFood();
+        } else snake.pop();
+        syncView();
+      }
+
+      // 所有图形合并到一个数组
+      function syncView() {
+        allData.length = 0;
+
+        // 网格
+        for (var x = 0; x <= COLS; x++)
+          allData.push({
+            x: x * SIZE,
+            y: 0,
+            width: 1,
+            height: H,
+            color: "#1a1f2e",
+          });
+        for (var y = 0; y <= ROWS; y++)
+          allData.push({
+            x: 0,
+            y: y * SIZE,
+            width: W,
+            height: 1,
+            color: "#1a1f2e",
+          });
+
+        // 食物
+        if (food.x !== undefined) {
+          allData.push({
+            x: food.x * SIZE + 2,
+            y: food.y * SIZE + 2,
+            width: SIZE - 4,
+            height: SIZE - 4,
+            color: "#f85149",
+          });
+        }
+
+        // 蛇身
+        for (var i = 0; i < snake.length; i++) {
+          allData.push({
+            x: snake[i].x * SIZE,
+            y: snake[i].y * SIZE,
+            width: SIZE,
+            height: SIZE,
+            color: i === 0 ? "#58a6ff" : "#3fb950",
+          });
+        }
+
+        // 蛇头眼睛
+        if (snake.length > 0) {
+          var h = snake[0],
+            cx = h.x * SIZE,
+            cy = h.y * SIZE;
+          allData.push({
+            x: cx + 10,
+            y: cy + 10,
+            width: 6,
+            height: 6,
+            color: "#fff",
+          });
+          allData.push({
+            x: cx + 24,
+            y: cy + 10,
+            width: 6,
+            height: 6,
+            color: "#fff",
+          });
+          allData.push({
+            x: cx + 12,
+            y: cy + 12,
+            width: 3,
+            height: 3,
+            color: "#0d1117",
+          });
+          allData.push({
+            x: cx + 26,
+            y: cy + 12,
+            width: 3,
+            height: 3,
+            color: "#0d1117",
+          });
+        }
+
+        // 游戏结束红线
+        if (gameOver) {
+          allData.push({
+            x: 0,
+            y: H / 2 - 1,
+            width: W,
+            height: 2,
+            color: "#f85149",
+          });
+        }
+      }
+
+      function loop() {
+        update();
+      }
+
+      init();
+      timer = setInterval(loop, 150);
+
+      window.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowUp" && direction !== "down") nextDirection = "up";
+        else if (e.key === "ArrowDown" && direction !== "up")
+          nextDirection = "down";
+        else if (e.key === "ArrowLeft" && direction !== "right")
+          nextDirection = "left";
+        else if (e.key === "ArrowRight" && direction !== "left")
+          nextDirection = "right";
+        else if (e.key === " ") {
+          clearInterval(timer);
+          init();
+          timer = setInterval(loop, 150);
+        }
+        e.preventDefault();
+      });
+    </script>
+  </body>
+</html>

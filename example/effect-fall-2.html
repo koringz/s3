@@ -1,0 +1,71 @@
+<html>
+<head>
+  <title>🎯 Pipeline 链式粒子</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    body { background: #0d1117; overflow: hidden; font-family: system-ui; }
+    h1 { position: absolute; left: 20px; top: 12px; color: #c9d1d9; font-size: 15px; z-index: 1; font-weight: 400; }
+    h1 span { color: #ab5eee; }
+    canvas { display: block; }
+  </style>
+  <script src="./../lib/S3.js"></script>
+</head>
+<body>
+  <h1>🎯 <span>Pipeline</span> 链式粒子系统</h1>
+  <canvas></canvas>
+
+<script>
+// ==================== Pipeline 链式引擎 ====================
+function pipe() {
+  var stages = [];
+  var chain = {
+    source: function(fn) { stages.push(fn); return chain; },
+    physics: function(fn) { stages.push(fn); return chain; },
+    border: function(fn) { stages.push(fn); return chain; },
+    run: function() {
+      var state = { pool: [] };
+      for (var s = 0; s < stages.length; s++) {
+        stages[s](state);
+      }
+      return state.pool;
+    }
+  };
+  return chain;
+}
+
+// ==================== 各阶段 ====================
+
+// 发射器：沿抛物线生成 N 个粒子
+function emitter(count, startX, startY, vx, vy, gravity) {
+  return function(state) {
+    var px = startX, py = startY;
+    var pvx = vx, pvy = vy;
+    for (var i = 0; i < count; i++) {
+      px += pvx * 0.5;
+      py += pvy * 0.5;
+      pvy += gravity * 0.5;
+      state.pool.push({
+        x: Math.round(px),
+        y: Math.round(py),
+        radius: 8 + Math.random() * 6,
+        startAngles: 0, stopAngles: 360,
+        color: 'rgba(171,94,238,' + (0.3 + Math.random() * 0.5) + ')'
+      });
+    }
+  };
+}
+
+// ==================== 组装 ====================
+var W = document.body.offsetWidth;
+var H = document.body.offsetHeight;
+
+var particles = pipe()
+  .source(emitter(60, 0, 360, 45, 40, -12))    // 60 个粒子沿抛物线
+  .run();
+
+var Body = s3.body(s3.dom("canvas"));
+Body.set({ width: W, height: H });
+Body.component('circle', { type: 'Array', bg: '#0d1117', property: particles });
+</script>
+</body>
+</html>
