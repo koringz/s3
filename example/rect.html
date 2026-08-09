@@ -15,7 +15,8 @@
 
 <script>
 var W = document.body.offsetWidth;
-var H = document.body.offsetHeight;
+// var H = document.body.offsetHeight;
+var H = 200;
 
 var Body = s3.body(s3.dom("canvas"));
 Body.set({ width: W, height: H });
@@ -23,14 +24,14 @@ const algos = s3.algo();
 
 var bars = algos                  // 创建 algo 实例（支持链式调用）
     .bars(12)                         // 12 根柱子
-    .width(62)
+    .width(22)
     .gap(10)
-    .baseY(H - 50)                    // 柱状图基线
-    .heightRange(30, H * 0.5 + 30)   // 高度范围
+    .baseY(H-10)                    // 柱状图基线
     .colors([
         '#e74c3c','#3498db','#2ecc71','#f1c40f','#9b59b6','#e67e22',
         '#1abc9c','#e84393','#00cec9','#fd79a8','#6c5ce7','#fdcb6e'
     ])
+    .heights([10,20,30,10,20,30,10,120,30,10,20,30])  // 直接设置高度
     .generateBars();
 
     console.log(bars)
