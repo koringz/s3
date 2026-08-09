@@ -14,6 +14,7 @@
 const Body = s3.body(s3.dom("canvas"))
 Body.set({ width: document.body.offsetWidth, height:  document.body.offsetHeight })
 Body.component('circle', { type:'Array', property: EFFECTS()() })
+Body.render();
 
 function EFFECTS () {
   var w = document.body.offsetWidth, h = document.body.offsetHeight;

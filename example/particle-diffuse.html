@@ -13,6 +13,8 @@ const w = document.body.offsetWidth, h = document.body.offsetHeight;
 const Body = s3.body(s3.dom("canvas"));
 Body.set({ width: w, height: h });
 Body.component('circle', { type: 'Array', property: EFFECTS() });
+Body.render();
+
 function EFFECTS() {
   for (var i = 0, results = new Array(); i < 111; i++) {
     let theta = Math.random() * Math.PI * 2, random =  Math.random();

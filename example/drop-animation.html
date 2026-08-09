@@ -17,6 +17,7 @@ const offsetHeight = document.body.offsetHeight
 const Body = s3.body(s3.dom("canvas"))
 Body.set({ width: offsetWidth, height: offsetHeight })
 Body.component('circle', { type:'Array', property: pos() })
+Body.render();
 
 function pos () {
   var obj = null, ot = [], w = offsetWidth / 8, h = offsetHeight / 2

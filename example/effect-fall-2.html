@@ -66,6 +66,7 @@ var particles = pipe()
 var Body = s3.body(s3.dom("canvas"));
 Body.set({ width: W, height: H });
 Body.component('circle', { type: 'Array', bg: '#0d1117', property: particles });
+Body.render();
 </script>
 </body>
 </html>

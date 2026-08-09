@@ -1,0 +1,113 @@
+<html>
+<head>
+  <title>🧩 Rect 测试</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    body { background: #1a1a2e; overflow: hidden; }
+    h1 { position: absolute; left: 20px; top: 12px; color: #fff; font-size: 16px; font-family: system-ui; }
+    canvas { display: block; margin-top: 60px}
+  </style>
+  <script src="./../lib/S3.js"></script>
+</head>
+<body>
+  <h1>🧩 Rect 组件</h1>
+  <canvas></canvas>
+
+<script>
+var W = document.body.offsetWidth;
+// var H = document.body.offsetHeight;
+var H = 400;
+
+var Body = s3.body(s3.dom("canvas"));
+Body.set({ width: W, height: H });
+const algos = s3.algo();
+
+var bars = algos                  // 创建 algo 实例（支持链式调用）
+    .bars(1)                         // 12 根柱子
+    .width(52)
+    .gap(10)
+    .baseY(H-210)                    // 柱状图基线
+    .colors([
+        '#e74c3c','#3498db','#2ecc71','#f1c40f','#9b59b6','#e67e22',
+        '#1abc9c','#e84393','#00cec9','#fd79a8','#6c5ce7','#fdcb6e'
+    ])
+    .heights([110])  // 直接设置高度
+    .generateBars();
+
+    console.log(bars)
+
+
+// 全局移动方向（被键盘事件修改）
+let moveDir = 'right';
+
+// 1. 使用 algo 模块生成多个圆的数据
+const count = 12;   // 圆的数量
+const algoInstance = new s3.algo();
+const generatedBars = algoInstance
+  .width(30)                          // 柱子宽度（不影响圆）
+  .gap(0)
+  .bars(12)
+  .baseY(0)                           // 基线（这里不用）
+  .heightRange(10, 40)                // 高度范围 → 用作圆的半径
+  .colors([
+    '#e74c3c', '#3498db', '#2ecc71', '#f1c40f',
+    '#9b59b6', '#e67e22', '#1abc9c', '#e84393',
+    '#00cec9', '#fd79a8', '#6c5ce7', '#fdcb6e'
+  ])
+  .generateBars();                    // 返回柱状图数组
+
+  
+// 2. 将柱状图数据映射为圆形的 property 配置
+const circles = generatedBars.map(function(bar, i) {
+  return {
+    color: bar.color,                // 使用 algo 生成的颜色
+    x: Math.random() * W,            // 随机初始 x 坐标
+    y: Math.random() * H,            // 随机初始 y 坐标
+    radius: bar.height,              // 柱子的高度作为圆的半径
+    speed: 2 + Math.random() * 3,    // 随机速度（2~5 像素/帧）
+    motion: 'move',
+    method: createMoveMethod()       // 统一的运动回调
+  };
+});
+
+Body.component('circle', { type: 'Array',property: circles });
+Body.component('rect', { type:'Array', property: bars });
+Body.render()
+
+// 4. 创建通用的移动方法（所有圆共用）
+function createMoveMethod() {
+  return function(api) {
+    var cur = api.current;
+    var x = cur.x;
+    var y = cur.y;
+    var s = cur.speed;
+    var r = cur.radius;
+
+    // 根据全局方向更新坐标
+    if (moveDir === 'left')  x -= s;
+    if (moveDir === 'right') x += s;
+    if (moveDir === 'up')    y -= s;
+    if (moveDir === 'down')  y += s;
+
+    // 边界循环：穿出屏幕后从对面重新进入
+    if (x < -r * 2) x = W + r;
+    if (x > W + r * 2) x = -r;
+    if (y < -r * 2) y = H + r;
+    if (y > H + r * 2) y = -r;
+
+    api.setState({ x: x, y: y });
+    return [[x, y]];   // S3 需要坐标数组来绘制圆形路径
+  };
+}
+
+// 5. 键盘控制：修改全局方向变量
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft')  { moveDir = 'left';  e.preventDefault(); }
+  if (e.key === 'ArrowRight') { moveDir = 'right'; e.preventDefault(); }
+  if (e.key === 'ArrowUp')    { moveDir = 'up';    e.preventDefault(); }
+  if (e.key === 'ArrowDown')  { moveDir = 'down';  e.preventDefault(); }
+});
+
+</script>
+</body>
+</html>
