@@ -23,7 +23,7 @@ Body.set({ width: W, height: H });
 const algos = s3.algo();
 
 var bars = algos                  // 创建 algo 实例（支持链式调用）
-    .bars(1)                         // 12 根柱子
+    .bars(4)                         // 12 根柱子
     .width(52)
     .gap(10)
     .baseY(H-210)                    // 柱状图基线
@@ -31,7 +31,7 @@ var bars = algos                  // 创建 algo 实例（支持链式调用）
         '#e74c3c','#3498db','#2ecc71','#f1c40f','#9b59b6','#e67e22',
         '#1abc9c','#e84393','#00cec9','#fd79a8','#6c5ce7','#fdcb6e'
     ])
-    .heights([110])  // 直接设置高度
+    .heights([110,78,130])  // 直接设置高度
     .generateBars();
 
     console.log(bars)
@@ -65,10 +65,11 @@ const circles = generatedBars.map(function(bar, i) {
     y: Math.random() * H,            // 随机初始 y 坐标
     radius: bar.height,              // 柱子的高度作为圆的半径
     speed: 2 + Math.random() * 3,    // 随机速度（2~5 像素/帧）
-    motion: 'move',
-    method: createMoveMethod()       // 统一的运动回调
+    motion: i != 0 ? 'move' : null,
+    method: i !== 0 ? createMoveMethod()  : null       // 统一的运动回调
   };
 });
+console.log(circles)
 
 Body.component('circle', { type: 'Array',property: circles });
 Body.component('rect', { type:'Array', property: bars });
@@ -96,7 +97,7 @@ function createMoveMethod() {
     if (y > H + r * 2) y = -r;
 
     api.setState({ x: x, y: y });
-    return [[x, y]];   // S3 需要坐标数组来绘制圆形路径
+    return [x, y];   // S3 需要坐标数组来绘制圆形路径
   };
 }
 
